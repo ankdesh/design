@@ -27,6 +27,7 @@ public class Component {
 
 }
 ```
+
 ***Application.java***
 ```
 package com.glarimy.factory;
@@ -51,7 +52,6 @@ public interface Component {
 ```
 
 ***ConcreteComponent.java***
-
 ```
 package com.glarimy.factory;
 
@@ -73,6 +73,7 @@ public interface Factory<T> {
 	T get(String key) throws Exception;
 }
 ```
+
 ***ConcreteFactory.java***
 ```
 package com.glarimy.factory;
@@ -137,6 +138,7 @@ public class Application {
 ![](models/singleton.png)
 
 **1.3.5. Problem**
+
 ***Component.java***
 ```
 package com.glarimy.singleton;
@@ -148,6 +150,7 @@ public class Component {
 
 }
 ```
+
 ***Application.java***
 ```
 package com.glarimy.singleton;
@@ -161,6 +164,7 @@ public class Application {
 ```
 
 **1.3.6. Solution**
+
 ***Component.java***
 ```
 package com.glarimy.singleton;
@@ -185,6 +189,7 @@ public class Component {
 
 }
 ```
+
 ***Application.java***
 ```
 package com.glarimy.singleton;
