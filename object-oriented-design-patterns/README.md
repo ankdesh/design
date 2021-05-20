@@ -5,11 +5,11 @@
 ### 1.1. Factory and Factory Method
 **1.1.1. Intent** To separate the responsibility of object creation from its user
 
-**1.1.2. Benefit** Helps in decoupling the application code from the service implementation
+**1.1.2. Applicability** In all applications while creating an object against an interface
 
-**1.1.3. Applicability** In all applications while creating an object against an interface
+**1.1.3. Benefit** Helps in decoupling the application code from the service implementation
 
-**1.1.4. Model**
+**1.1.4. Class Model**
 
 ![](models/factory-method.png)
 
@@ -124,10 +124,73 @@ public class Application {
 ![](models/abstract-factory.png)
 
 ### 1.3. Singleton
-**Intent** To limit the number of instances of a class to a maximum of one
+**1.3.1. Intent** To limit the number of instances of a class to a maximum of one
 
-**Benefits** Helps in maintaining the application context in memory
+**1.3.2. Applicability** Normally used in configuration, cache and etc., 
 
-**Applicability** Normally used in configuration, cache and etc., 
+**1.3.3. Benefits** Helps in maintaining the application context in memory
+
+**1.3.4. Class Model**
 
 ![](models/singleton.png)
+
+**1.3.5. Problem**
+***Component.java***
+```
+package com.glarimy.singleton;
+
+public class Component {
+	public void service() {
+		System.out.println("Component::execute");
+	}
+
+}
+```
+***Application.java***
+```
+package com.glarimy.singleton;
+
+public class Application {
+	public static void main(String[] args) throws Exception {
+		Component component = new Component();
+		component.service();
+	}
+}
+```
+
+**1.3.6. Solution**
+***Component.java***
+```
+package com.glarimy.singleton;
+
+public class Component {
+
+	private static Component INSTANCE = null;
+
+	private Component() {
+
+	}
+
+	public static synchronized Component getInstance() {
+		if (INSTANCE == null)
+			INSTANCE = new Component();
+		return INSTANCE;
+	}
+
+	public void service() {
+		System.out.println("Component::execute");
+	}
+
+}
+```
+***Application.java***
+```
+package com.glarimy.singleton;
+
+public class Application {
+	public static void main(String[] args) throws Exception {
+		Component component = Component.getInstance();
+		component.service();
+	}
+}
+```

@@ -1,7 +1,5 @@
 package com.glarimy.singleton;
 
-import java.util.Date;
-
 public class Component {
 
 	private static Component INSTANCE = null;
@@ -16,8 +14,8 @@ public class Component {
 		return INSTANCE;
 	}
 
-	public void execute() {
-		System.out.println(new Date() + " - " + this.getClass().getName() + "::execute");
+	public void service() {
+		System.out.println("Component::execute");
 	}
 
 }
