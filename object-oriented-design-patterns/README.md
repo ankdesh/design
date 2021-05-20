@@ -409,5 +409,112 @@ public class Application {
 }
 ```
 
+### 2.3. Decorator
+**2.3.1. Intent** To extend an object
+
+**2.3.2. Applicability** Often used to provide add-on features
+
+**2.3.3. Benefits** Offloads optional functionality from objects
+
+**2.3.4. Class Model**
+
+![](models/decorator-classes.png)
+
+**2.3.5. Collaboration Model**
+
+![](models/decorator-collaborations.png)
+
+**2.3.6 Problem**
+
+***Component.java***
+```
+package com.glarimy.decorator;
+
+public class Component {
+	public void mandatory() {
+		System.out.println("Component::mandatory");
+	}
+	public void optional() {
+		System.out.println("Component::optional");
+	}
+}
+```
+
+***Application.java***
+```
+package com.glarimy.decorator;
+
+public class Application {
+	public static void main(String[] args) throws Exception {
+		Component comp = new Component();
+		comp.mandatory();
+		comp.optional();
+	}
+}
+```
+
+**2.3.7 Solution**
+
+***Component.java***
+```
+package com.glarimy.decorator;
+
+public interface Component {
+	public void mandatory();
+}
+```
+
+***ConcreteComponent.java***
+```
+package com.glarimy.decorator;
+
+public class ConcreteComponent implements Component {
+	@Override
+	public void mandatory() {
+		System.out.println("Component::mandatory");
+	}
+}
+
+```
+
+***Decorator.java***
+```
+package com.glarimy.decorator;
+
+public class Decorator implements Component {
+	private Component target;
+	
+	public Decorator(Component target) {
+		this.target = target;
+	}
+	
+	public void mandatory() {
+		this.target.mandatory();
+	}
+	
+	public void optional() {
+		System.out.println("Decorator::optional pre processing");
+		this.target.mandatory();
+		System.out.println("Decorator::optional post processing");
+
+	}
+}
+```
+
+***Application.java***
+```
+package com.glarimy.decorator;
+
+public class Application {
+	public static void main(String[] args) throws Exception {
+		Component comp = new ConcreteComponent();
+		comp.mandatory();
+		Decorator decorator = new Decorator(comp);
+		decorator.mandatory();
+		decorator.optional();
+	}
+}
+```
+
 
 
