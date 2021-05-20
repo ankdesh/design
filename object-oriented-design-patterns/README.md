@@ -14,6 +14,7 @@
 ![](models/factory-method.png)
 
 #### 1.1.5. Problem ####
+
 ***Component.java***
 ```
 package com.glarimy.factory;
@@ -38,6 +39,7 @@ public class Application {
 }
 ```
 #### 1.1.6. Solution ####
+
 ***Component.java***
 
 ```
