@@ -15,7 +15,7 @@ public class Component {
 	}
 
 	public void service() {
-		System.out.println("Component::execute");
+		System.out.println("Component::service");
 	}
 
 }

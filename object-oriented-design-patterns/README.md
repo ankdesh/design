@@ -301,3 +301,113 @@ public class Application {
 	}
 }
 ```
+
+### 2.2. Proxy
+**2.2.1. Intent** To do pre and post processing anonymously
+
+**2.2.2. Applicability** Popular in offering pluggable quality features
+
+**2.2.3. Benefits** Helps in separating the concerns
+
+**2.2.4. Class Model**
+
+![](models/proxy-classes.png)
+
+**2.2.5. Collaboration Model**
+
+![](models/proxy-collaborations.png)
+
+**2.2.6 Problem**
+
+***Component.java***
+```
+package com.glarimy.proxy;
+
+public class Component {
+
+	public void service() throws Exception {
+		System.out.println("Component::service");
+	}
+
+}
+```
+
+***Application.java***
+```
+package com.glarimy.proxy;
+
+public class Application {
+	public static void main(String[] args) throws Exception {
+		Component comp = new Component();
+		comp.service();
+	}
+}
+```
+
+**2.2.7 Solution**
+
+***Component.java***
+```
+package com.glarimy.proxy;
+
+public interface Component {
+
+	public void service() throws Exception;
+
+}
+```
+
+***ConcreteComponent.java***
+```
+package com.glarimy.proxy;
+
+public class ConcreteComponent implements Component {
+
+	public void service() throws Exception {
+		System.out.println("ConcreteComponent::service");
+	}
+
+}
+```
+
+***Proxy.java***
+```
+package com.glarimy.proxy;
+
+public class Proxy implements Component {
+	private Component target;
+
+	public Proxy(Component target) {
+		this.target = target;
+	}
+
+	public void service() throws Exception {
+		System.out.println("Proxy::pre processing");
+		try {
+			target.service();
+			System.out.println("Proxy::post processing");
+		}catch(Exception e) {
+			System.out.println("Proxy::error handling");
+			throw e;
+		}
+	}
+
+}
+```
+
+***Application.java***
+```
+package com.glarimy.proxy;
+
+public class Application {
+	public static void main(String[] args) throws Exception {
+		Component target = new ConcreteComponent();
+		Component proxy = new Proxy(target);
+		
+		proxy.service();
+	}
+}
+```
+
+
+
