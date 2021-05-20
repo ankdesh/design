@@ -10,6 +10,7 @@
 **1.1.3. Applicability** In all applications while creating an object against an interface
 
 **1.1.4. Model**
+
 ![](models/factory-method.png)
 
 #### 1.1.5. Problem ####
