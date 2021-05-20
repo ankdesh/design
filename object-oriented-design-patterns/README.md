@@ -201,3 +201,103 @@ public class Application {
 	}
 }
 ```
+## 2. Structural Patterns
+
+### 2.1. Adapter
+**2.1.1. Intent** To provide a known interface to an unknown object
+
+**2.1.2. Applicability** Often used as a protection layer between application and third-party components 
+
+**2.1.3. Benefits** Avoids tight coupling with third-party code
+
+**2.1.4. Class Model**
+
+![](models/adapter-classes.png)
+
+**2.1.5. Collaboration Model**
+
+![](models/adapter-collaborations.png)
+
+**2.1.6. Problem**
+
+***Component.java***
+```
+package com.glarimy.adapter;
+
+public class Component {
+
+	public void service() {
+		System.out.println("Component::service()");
+	}
+
+}
+```
+
+***Application.java***
+```
+package com.glarimy.adapter;
+
+public class Application {
+	public static void main(String[] args) {
+		Component component = new Component();
+		component.service();
+	}
+}
+```
+
+**2.1.7. Solution**
+
+***Component.java***
+```
+package com.glarimy.thirdparty;
+
+public class Component {
+
+	public void service() {
+		System.out.println("Component::service()");
+	}
+
+}
+```
+
+***Adapter.java***
+```
+package com.glarimy.app;
+
+public interface Adapter {
+	public void adapt();
+}
+```
+
+***ConcreteAdapter.java***
+```
+package com.glarimy.app;
+
+import com.glarimy.thirdparty.Component;
+
+public class ComponentAdapter implements Adapter {
+	private Component component;
+
+	public ComponentAdapter() {
+		this.component = new Component();
+	}
+
+	@Override
+	public void adapt() {
+		this.component.service();
+	}
+
+}
+```
+
+***Application.java***
+```
+package com.glarimy.app;
+
+public class Application {
+	public static void main(String[] args) {
+		Adapter adapter = new ComponentAdapter();
+		adapter.adapt();
+	}
+}
+```

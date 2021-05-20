@@ -2,10 +2,8 @@ package com.glarimy.decorator;
 
 public class Application {
 	public static void main(String[] args) throws Exception {
-		Component comp = new ConcreteComponent();
+		Component comp = new Component();
 		comp.mandatory();
-		Decorator decorator = new Decorator(comp);
-		decorator.mandatory();
-		decorator.optional();
+		comp.optional();
 	}
 }

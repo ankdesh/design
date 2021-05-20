@@ -1,18 +1,20 @@
 package com.glarimy.decorator;
 
-public class Decorator extends Square {
-	private Square target;
-
-	public Decorator(Square target) {
+public class Decorator implements Component {
+	private Component target;
+	
+	public Decorator(Component target) {
 		this.target = target;
 	}
-
-	@Override
-	public void area() {
-		target.area();
+	
+	public void mandatory() {
+		this.target.mandatory();
 	}
+	
+	public void optional() {
+		System.out.println("Decorator::optional pre processing");
+		this.target.mandatory();
+		System.out.println("Decorator::optional post processing");
 
-	public void perimeter() {
-		System.out.println("Perimeter: " + 4 * target.getSide());
 	}
 }
