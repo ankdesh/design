@@ -809,10 +809,6 @@ public class Application {
 
 ![collaborations](models/strategy-collaborations.png)
 
-**3.4.6. Problem**
-
-**3.4.7. Solution**
-
 ### 3.5. Template Method
 **3.5.1. Intent** To build a generic algorithm
 
@@ -827,10 +823,6 @@ public class Application {
 **3.5.5. Collaboration Model**
 
 ![collaborations](models/template-collaborations.png)
-
-**3.5.6. Problem**
-
-**3.5.7. Solution**
 
 ### 3.6. Iterator
 **3.6.1. Intent** To travers through an datastructure without knowing the structure
@@ -847,10 +839,6 @@ public class Application {
 
 ![collaborations](models/iterator-collaborations.png)
 
-**3.6.6. Problem**
-
-**3.6.7. Solution**
-
 ### 3.7. Visitor
 **3.7.1. Intent** To decorate an object graph
 
@@ -865,10 +853,6 @@ public class Application {
 **3.7.5. Collaboration Model**
 
 ![collaborations](models/visitor-collaborations.png)
-
-**3.7.6. Problem**
-
-**3.7.7. Solution**
 
 ### 3.8. State
 **3.8.1. Intent** To build state machine
@@ -885,10 +869,6 @@ public class Application {
 
 ![collaborations](models/state-collaborations.png)
 
-**3.8.6. Problem**
-
-**3.8.7. Solution**
-
 ### 3.9. Command
 **3.9.1. Intent** To act as a callback object
 
@@ -903,9 +883,3 @@ public class Application {
 **3.9.5. Collaboration Model**
 
 ![collaborations](models/command-collaborations.png)
-
-**3.9.6. Problem**
-
-**3.9.7. Solution**
-
-
