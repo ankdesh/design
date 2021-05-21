@@ -219,7 +219,102 @@ public class Application {
 
 **1.4.6. Problem**
 
+***Component.java***
+```
+package com.glarimy.builder;
+
+import java.util.ArrayList;
+import java.util.List;
+
+public class Component {
+	private List<String> options = new ArrayList<String>();
+
+	public Component(String first, String second, String third) {
+		this.options.add(first);
+		this.options.add(second);
+		this.options.add(third);
+	}
+
+	public List<String> getOptions() {
+		return options;
+	}
+
+	public void setOptions(List<String> options) {
+		this.options = options;
+	}
+
+	public void service() {
+		System.out.println(this.options);
+	}
+
+}
+```
+
+***Application.java***
+```
+package com.glarimy.builder;
+
+public class Application {
+	public static void main(String[] args) throws Exception {
+		Component order = new Component("color", "title", "picture");
+		order.service();
+	}
+}
+```
+
 **1.4.7. Solution**
+
+***Component.java***
+```
+package com.glarimy.builder;
+
+import java.util.ArrayList;
+import java.util.List;
+
+public class Component {
+	private List<String> options = new ArrayList<String>();
+
+	private Component(String first, String second, String third) {
+		this.options.add(first);
+		this.options.add(second);
+		this.options.add(third);
+	}
+
+	public String[] getOptions() {
+		return (String[]) options.toArray();
+	}
+
+	public void service() {
+		System.out.println(this.options);
+	}
+	
+	public static class ComponentBuilder{
+		private List<String> options = new ArrayList<String>();
+		
+		public ComponentBuilder add(String option) {
+			options.add(option);
+			return this;
+		}
+		
+		public Component build() {
+			return new Component(options.get(0), options.get(1), options.get(2));
+		}
+	}
+
+}
+```
+
+***Application.java***
+```
+package com.glarimy.builder;
+
+public class Application {
+	public static void main(String[] args) throws Exception {
+		Component component = new Component.ComponentBuilder().add("color").add("title").add("picture").build();
+		component.service();
+	}
+}
+```
 
 ## 2. Structural Patterns
 
