@@ -201,6 +201,26 @@ public class Application {
 	}
 }
 ```
+
+### 1.4. Builder
+**1.4.1. Intent** To build an immutable object interactively
+
+**1.4.2. Applicability** Often used in query builders, request builders and etc.,  
+
+**1.4.3. Benefits** Defers creation of heavy and complex objects as much as possible
+
+**1.4.4. Class Model**
+
+![classes](models/builder-classes.png)
+
+**1.4.5. Collaboration Model**
+
+![collaborations](models/builder-collaborations.png)
+
+**1.4.6. Problem**
+
+**1.4.7. Solution**
+
 ## 2. Structural Patterns
 
 ### 2.1. Adapter
@@ -516,5 +536,215 @@ public class Application {
 }
 ```
 
+### 2.4. Composite
+**2.4.1. Intent** To treat sum of the parts as a whole
+
+**2.4.2. Applicability** Often used in GUI widget systems  
+
+**2.4.3. Benefits** Enables addition and removal of objects from a heirarchy without disturbance
+
+**2.4.4. Class Model**
+
+![classes](models/composite-classes.png)
+
+**2.4.5. Collaboration Model**
+
+![collaborations](models/composite-collaborations.png)
+
+**2.4.6. Problem**
+
+**2.4.7. Solution**
+
+### 2.5. Facade
+**2.5.1. Intent** To hide internal collaboration of objects
+
+**2.5.2. Applicability** Often provided as a front-end gateway to a reusable system
+
+**2.5.3. Benefits** Protects the client applications from changes in the reusable system
+
+**2.5.4. Class Model**
+
+![classes](models/facade-classes.png)
+
+**2.5.5. Collaboration Model**
+
+![collaborations](models/facade-collaborations.png)
+
+**2.5.6. Problem**
+
+**2.5.7. Solution**
+
+## 3. Behaviroual Patterns 
+
+### 3.1. Chain of Responsibilities
+**3.1.1. Intent** To escalate a call conditionally
+
+**3.1.2. Applicability** Found MVC frameworks and Middleware with interceptors
+
+**3.1.3. Benefits** Helps in plugging and plugging out interceptors without disturbing the heirarchy
+
+**3.1.4. Class Model**
+
+![classes](models/cor-classes.png)
+
+**3.1.5. Collaboration Model**
+
+![collaborations](models/cor-collaborations.png)
+
+**3.1.6. Problem**
+
+**3.1.7. Solution**
+
+### 3.2. Mediator
+**3.2.1. Intent** To enable intra-group communication asynchronously
+
+**3.2.2. Applicability** Found in cluster management systems
+
+**3.2.3. Benefits** Decouples the group members
+
+**3.2.4. Class Model**
+
+![classes](models/mediator-classes.png)
+
+**3.2.5. Collaboration Model**
+
+![collaborations](models/mediator-collaborations.png)
+
+**3.2.6. Problem**
+
+**3.2.7. Solution**
+
+### 3.3. Observer
+**3.3.1. Intent** To enable inter-group communication asynchronously
+
+**3.3.2. Applicability** Found in messaging systems
+
+**3.3.3. Benefits** Decouples the publishers and subscribers
+
+**3.3.4. Class Model**
+
+![classes](models/observer-classes.png)
+
+**3.3.5. Collaboration Model**
+
+![collaborations](models/observer-collaborations.png)
+
+**3.3.6. Problem**
+
+**3.3.7. Solution**
+
+### 3.4. Strategy
+**3.4.1. Intent** To choose an algorithm at runtime
+
+**3.4.2. Applicability** Often used to offer customizable solutions
+
+**3.4.3. Benefits** Helps in picking context specific implementation
+
+**3.4.4. Class Model**
+
+![classes](models/strategy-classes.png)
+
+**3.4.5. Collaboration Model**
+
+![collaborations](models/strategy-collaborations.png)
+
+**3.4.6. Problem**
+
+**3.4.7. Solution**
+
+### 3.5. Template Method
+**3.5.1. Intent** To build a generic algorithm
+
+**3.5.2. Applicability** Often used when different algorithms share some common steps
+
+**3.5.3. Benefits** Avoids code duplication
+
+**3.5.4. Class Model**
+
+![classes](models/template-classes.png)
+
+**3.5.5. Collaboration Model**
+
+![collaborations](models/template-collaborations.png)
+
+**3.5.6. Problem**
+
+**3.5.7. Solution**
+
+### 3.6. Iterator
+**3.6.1. Intent** To travers through an datastructure without knowing the structure
+
+**3.6.2. Applicability** Often used lists, collections, trees, graphs and etc., 
+
+**3.6.3. Benefits** Provides unified way to iterate through a collection of elements
+
+**3.6.4. Class Model**
+
+![classes](models/iterator-classes.png)
+
+**3.6.5. Collaboration Model**
+
+![collaborations](models/iterator-collaborations.png)
+
+**3.6.6. Problem**
+
+**3.6.7. Solution**
+
+### 3.7. Visitor
+**3.7.1. Intent** To decorate an object graph
+
+**3.7.2. Applicability** Helps in offering new features without disturbing the interface
+
+**3.7.3. Benefits** Easy to add additional functionality
+
+**3.7.4. Class Model**
+
+![classes](models/visitor-classes.png)
+
+**3.7.5. Collaboration Model**
+
+![collaborations](models/visitor-collaborations.png)
+
+**3.7.6. Problem**
+
+**3.7.7. Solution**
+
+### 3.8. State
+**3.8.1. Intent** To build state machine
+
+**3.8.2. Applicability** Obvious
+
+**3.8.3. Benefits** Helps in adding and removing states easily
+
+**3.8.4. Class Model**
+
+![classes](models/state-classes.png)
+
+**3.8.5. Collaboration Model**
+
+![collaborations](models/state-collaborations.png)
+
+**3.8.6. Problem**
+
+**3.8.7. Solution**
+
+### 3.9. Command
+**3.9.1. Intent** To act as a callback object
+
+**3.9.2. Applicability** Used in event driven systems
+
+**3.9.3. Benefits** Helps in non-blocking asynchronous systems
+
+**3.9.4. Class Model**
+
+![classes](models/command-classes.png)
+
+**3.9.5. Collaboration Model**
+
+![collaborations](models/command-collaborations.png)
+
+**3.9.6. Problem**
+
+**3.9.7. Solution**
 
 
