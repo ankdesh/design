@@ -794,10 +794,6 @@ public class Application {
 
 ![collaborations](models/observer-collaborations.png)
 
-**3.3.6. Problem**
-
-**3.3.7. Solution**
-
 ### 3.4. Strategy
 **3.4.1. Intent** To choose an algorithm at runtime
 
