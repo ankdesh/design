@@ -747,10 +747,6 @@ public class Application {
 
 ![collaborations](models/facade-collaborations.png)
 
-**2.5.6. Problem**
-
-**2.5.7. Solution**
-
 ## 3. Behaviroual Patterns 
 
 ### 3.1. Chain of Responsibilities
@@ -768,10 +764,6 @@ public class Application {
 
 ![collaborations](models/cor-collaborations.png)
 
-**3.1.6. Problem**
-
-**3.1.7. Solution**
-
 ### 3.2. Mediator
 **3.2.1. Intent** To enable intra-group communication asynchronously
 
@@ -786,10 +778,6 @@ public class Application {
 **3.2.5. Collaboration Model**
 
 ![collaborations](models/mediator-collaborations.png)
-
-**3.2.6. Problem**
-
-**3.2.7. Solution**
 
 ### 3.3. Observer
 **3.3.1. Intent** To enable inter-group communication asynchronously
