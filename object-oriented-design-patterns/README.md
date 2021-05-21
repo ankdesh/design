@@ -646,9 +646,91 @@ public class Application {
 
 ![collaborations](models/composite-collaborations.png)
 
-**2.4.6. Problem**
+**2.4.6. Solution**
 
-**2.4.7. Solution**
+***Component.java***
+```
+package com.glarimy.composit;
+
+public interface Component {
+	public void service();
+}
+```
+
+***Container.java***
+```
+package com.glarimy.composit;
+
+import java.util.ArrayList;
+import java.util.List;
+
+public abstract class Container implements Component {
+	private List<Component> parts = new ArrayList<>();
+	
+	public void add(Component part) {
+		parts.add(part);
+	}
+	
+	public void remove(Component part) {
+		parts.remove(part);
+	}
+	
+	public void service() {
+		for(Component part: parts)
+			part.service();
+	}
+}
+```
+
+***ConcreteComponent.java***
+```
+package com.glarimy.composit;
+
+public class ConcreteComponent implements Component {
+
+	@Override
+	public void service() {
+		System.out.println("ConcreteComponent::service");
+	}
+}
+```
+
+***ConcreteContainer.java***
+```
+package com.glarimy.composit;
+
+public class ConcreteContainer extends Container {
+	@Override
+	public void service() {
+		System.out.println("ConcreteContainer::service - start");
+		super.service();
+		System.out.println("ConcreteContainer::service - stop");
+	}
+}
+```
+
+***Application.java***
+```
+package com.glarimy.composit;
+
+public class Application {
+	public static void main(String[] args) throws Exception {
+		Container container = new ConcreteContainer();
+		Container partOne = new ConcreteContainer();
+		Container partTwo = new ConcreteContainer();
+		Component partThree = new ConcreteComponent();
+		Component partFour = new ConcreteComponent();
+		
+		partTwo.add(partThree);
+		partTwo.add(partFour);
+		partOne.add(partTwo);
+		
+		container.add(partOne);
+		
+		container.service();
+	}
+}
+```
 
 ### 2.5. Facade
 **2.5.1. Intent** To hide internal collaboration of objects
