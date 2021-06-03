@@ -11,9 +11,13 @@
 
 **1.1.4. Class Model**
 
-![](models/factory-method.png)
+![classes](models/factory-classes.png)
 
-#### 1.1.5. Problem ####
+**1.1.5. Collaboration Model**
+
+![collaborations](models/factory-classes.png)
+
+#### 1.1.6. Problem ####
 
 ***Component.java***
 ```
@@ -39,7 +43,7 @@ public class Application {
 	}
 }
 ```
-#### 1.1.6. Solution ####
+#### 1.1.7. Solution ####
 
 ***Component.java***
 
