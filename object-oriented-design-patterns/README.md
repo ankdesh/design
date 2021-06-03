@@ -15,7 +15,7 @@
 
 **1.1.5. Collaboration Model**
 
-![collaborations](models/factory-classes.png)
+![collaborations](models/factory-collaborations.png)
 
 #### 1.1.6. Problem ####
 
