@@ -118,13 +118,19 @@ public class Application {
 
 
 ### 1.2. Abstract Factory
-**Intent** To choose a factory from several available factories for a given interface
+**1.2.1. Intent** To choose a factory from several available factories for a given interface
 
-**Benefits** Helps in decoupling client applications from the vendor implementations
+**1.2.2. Benefits** Helps in decoupling client applications from the vendor implementations
 
-**Applicability** In cases where the API and its implementation are done by different vendors
+**1.2.3. Applicability** In cases where the API and its implementation are done by different vendors
 
-![](models/abstract-factory.png)
+**1.1.4. Class Model**
+
+![classes](models/abstractfactory-classes.png)
+
+**1.1.4. Collaboration Model**
+
+![collaborations](models/abstractfactory-collaborations.png)
 
 ### 1.3. Singleton
 **1.3.1. Intent** To limit the number of instances of a class to a maximum of one
