@@ -421,6 +421,74 @@ public class Application {
 }
 ```
 
+**1.4.8 C++ Solution**
+```
+#include <iostream>
+
+using namespace std;
+
+class Component
+{
+private:
+    Component() {}
+    string color;
+    string title;
+    string picture;
+
+public:
+    void service()
+    {
+        cout << color << " " << title << " " << picture << endl;
+    }
+    class ComponentBuilder;
+};
+
+class Component::ComponentBuilder
+{
+private:
+    string color;
+    string title;
+    string picture;
+
+public:
+    ComponentBuilder() {}
+    ComponentBuilder *setColor(string option)
+    {
+        color = option;
+        return this;
+    }
+    ComponentBuilder *setTitle(string option)
+    {
+        title = option;
+        return this;
+    }
+    ComponentBuilder *setPicture(string option)
+    {
+        picture = option;
+        return this;
+    }
+    Component *build()
+    {
+        Component *component = new Component();
+        component->color = color;
+        component->picture = picture;
+        component->title = title;
+        return component;
+    }
+};
+
+int main()
+{
+    Component *component = Component::ComponentBuilder()
+        .setColor("yellow")
+        ->setPicture("landscape")
+        ->setTitle("frame")
+        ->build();
+    component->service();
+    return 0;
+}
+```
+
 ## 2. Structural Patterns
 
 ### 2.1. Adapter
@@ -519,6 +587,71 @@ public class Application {
 		Adapter adapter = new ComponentAdapter();
 		adapter.adapt();
 	}
+}
+```
+
+**2.1.8. C++ Solution**
+
+```
+#include <iostream>
+using namespace std;
+
+class Adapter 
+{
+public:
+    virtual void adapt() = 0;
+};
+
+class Component
+{
+public:
+    void service()
+    {
+        cout << "Component::service()" << endl;
+    }
+};
+
+class ComponentAdapter : public Adapter
+{
+    private:
+        Component* target;
+public:
+    ComponentAdapter()
+    {
+        target = new Component();
+    }
+    void adapt()
+    {
+        this->target->service();
+    }
+};
+
+class Factory
+{
+public:
+    static Adapter* get(string key)
+    {
+        if (key == "adapter")
+        {
+            return new ComponentAdapter();
+        }
+
+        throw "Object not available";
+    }
+};
+
+int main()
+{
+    try
+    {
+        Adapter* adapter = Factory::get("adapter");
+        adapter->adapt();
+    }
+    catch (const char* e)
+    {
+        cout << e << endl;
+    }
+    return 0;
 }
 ```
 
@@ -626,6 +759,73 @@ public class Application {
 		
 		proxy.service();
 	}
+}
+```
+
+**2.2.8 C++ Solution**
+
+```
+#include <iostream>
+using namespace std;
+
+class Component 
+{
+public:
+    virtual void service() = 0;
+};
+
+class ConcreteComponent: public Component
+{
+public:
+    void service()
+    {
+        cout << "ConcreteComponent::service()" << endl;
+    }
+};
+
+class Proxy : public Component
+{
+    private:
+        Component* target;
+public:
+    Proxy(Component* target)
+    {
+        this->target = target;
+    }
+    void service()
+    {
+        cout << "Proxy: pre-processing" << endl;
+        this->target->service();
+        cout << "Proxy: post-processing" << endl;
+    }
+};
+
+class Factory
+{
+public:
+    static Component* get(string key)
+    {
+        if (key == "component")
+        {
+            return new Proxy(new ConcreteComponent());
+        }
+
+        throw "Object not available";
+    }
+};
+
+int main()
+{
+    try
+    {
+        Component* component = Factory::get("component");
+        component->service();
+    }
+    catch (const char* e)
+    {
+        cout << e << endl;
+    }
+    return 0;
 }
 ```
 
