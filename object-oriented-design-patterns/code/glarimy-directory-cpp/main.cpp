@@ -7,6 +7,30 @@ class Object
 {
 };
 
+class Message : public Object
+{
+private:
+    string topic;
+    string body;
+
+public:
+    Message(string header, string payload)
+    {
+        topic = header;
+        body = payload;
+    }
+
+    string getTopic()
+    {
+        return topic;
+    }
+
+    string getBody()
+    {
+        return body;
+    }
+};
+
 class Employee : public Object
 {
 private:
@@ -87,6 +111,82 @@ public:
     virtual Object *get(int key) = 0;
 };
 
+class Handler : public Object
+{
+public:
+    virtual void handle(Message *message) = 0;
+};
+
+class AuditHandler : public Object
+{
+private:
+    Auditor* auditor;
+public:
+    AuditHandler(Auditor* auditor)
+    {
+        this->auditor = auditor;
+    }
+    void handle(Message *message)
+    {
+        if(message->getTopic() == "audit")
+            auditor->log(message->getBody());
+    }
+};
+
+class EmailHandler : public Object
+{
+private:
+    Notifier* notifier;
+public:
+    EmailHandler(Notifier* notifier)
+    {
+        this->notifier = notifier;
+    }
+    void handle(Message *message)
+    {
+        if(message->getTopic() == "directory")
+            notifier->notify(message->getBody());
+    }
+};
+
+class Auditor : public Object
+{
+public:
+    virtual void log(string record) = 0;
+};
+
+class SimpleAuditor : public Auditor
+{
+public:
+    void log(string record)
+    {
+
+    }
+};
+
+class Notifier : public Object
+{
+public:
+    virtual void notify(string message) = 0;
+};
+
+class EmailNotifier : public Notifier
+{
+public:
+    void notify(string message)
+    {
+
+    }
+};
+
+class Broker : public Object
+{
+public:
+    virtual int subscribe(string tipic, Handler *handler) = 0;
+    virtual void unsubscribe(int id) = 0;
+    virtual void publish(Message *message) = 0;
+};
+
 class MapCache : public Cache
 {
 private:
@@ -111,7 +211,38 @@ public:
     }
 };
 
-MapCache* MapCache::INSTANCE = nullptr;
+MapCache *MapCache::INSTANCE = nullptr;
+
+class SimpleBroker : public Broker
+{
+private:
+    static SimpleBroker *INSTANCE;
+    SimpleBroker() {}
+
+public:
+    static SimpleBroker *getInstance()
+    {
+        if (INSTANCE == nullptr)
+            INSTANCE = new SimpleBroker();
+        return INSTANCE;
+    }
+
+    int subscribe(string topic, Handler *handler)
+    {
+        return 0;
+    }
+    void unsubscribe(int id)
+    {
+
+    }
+    void publish(Message *message)
+    {
+
+    }
+
+};
+
+SimpleBroker *SimpleBroker::INSTANCE = nullptr;
 
 class InMemoryDirectory : public Directory
 {
@@ -123,7 +254,7 @@ public:
     InMemoryDirectory(Cache *cache)
     {
         this->cache = cache;
-        id=1;
+        id = 1;
     }
     int add(Employee *e)
     {
@@ -167,8 +298,8 @@ public:
     {
         try
         {
-            cout << "entering find: " << id <<  endl;
-            Employee* e = (Employee*)target->find(id);
+            cout << "entering find: " << id << endl;
+            Employee *e = (Employee *)target->find(id);
             cout << "exiting find: " << e->getName() << endl;
             return e;
         }
@@ -194,7 +325,7 @@ public:
     {
         try
         {
-            if(e->getName() == "" || e->getPhone() < 0)
+            if (e->getName() == "" || e->getPhone() < 0)
             {
                 throw new InvalidEmployeeException("Invalid Employee");
             }
@@ -210,7 +341,7 @@ public:
     {
         try
         {
-            return (Employee*)target->find(id);
+            return (Employee *)target->find(id);
         }
         catch (DirectoryException *e)
         {
@@ -220,14 +351,51 @@ public:
     }
 };
 
+class AsyncDirectory : public Directory
+{
+private:
+    Directory *target;
+    Broker *broker;
+
+public:
+    AsyncDirectory(Directory *target, Broker *broker)
+    {
+        this->target = target;
+    }
+
+    int add(Employee *e)
+    {
+        broker->publish(new Message("audit", "add-employee attempted"));
+        int id = target->add(e);
+        broker->publish(new Message("directory", e->getName()));
+        return id;
+    }
+
+    Employee *find(int id)
+    {
+        broker->publish(new Message("audit", "find-employee attempted"));
+        return (Employee *)target->find(id);
+    }
+};
+
 class ObjectFactory
 {
 public:
     static Object *get(string key)
     {
+        if (key == "auditor")
+        {
+            return new SimpleAuditor();
+        }
+
+        if (key == "notifier")
+        {
+            return new EmailNotifier();
+        }
+
         if (key == "directory")
         {
-            Cache* cache = (Cache *)get("cache");
+            Cache *cache = (Cache *)get("cache");
             return new InMemoryDirectory(cache);
         }
 
@@ -236,21 +404,26 @@ public:
             return MapCache::getInstance();
         }
 
+        if (key == "broker")
+        {
+            return SimpleBroker::getInstance();
+        }
+
         if (key == "logger-directory")
         {
-            Directory* target = (Directory*)get("directory");
+            Directory *target = (Directory *)get("directory");
             return new LoggingProxy(target);
         }
 
         if (key == "validator-directory")
         {
-            Directory* target = (Directory*)get("directory");
+            Directory *target = (Directory *)get("directory");
             return new ValidationProxy(target);
         }
 
         if (key == "logger-validator-directory")
         {
-            Directory* target = (Directory*)get("directory");
+            Directory *target = (Directory *)get("directory");
             target = new ValidationProxy(target);
             target = new LoggingProxy(target);
             return target;
@@ -258,7 +431,17 @@ public:
 
         if (key == "validator-logger-directory")
         {
-            Directory* target = (Directory*)get("directory");
+            Directory *target = (Directory *)get("directory");
+            target = new LoggingProxy(target);
+            target = new ValidationProxy(target);
+            return target;
+        }
+
+        if (key == "full-system")
+        {
+            Directory *target = (Directory *)get("directory");
+            Broker* broker = (Broker* )get("broker");
+            target = new AsyncDirectory(target, broker);
             target = new LoggingProxy(target);
             target = new ValidationProxy(target);
             return target;
@@ -273,6 +456,14 @@ int main()
     try
     {
         Directory *dir = (Directory *)ObjectFactory::get("logger-validator-directory");
+        Broker* broker = (Broker*)ObjectFactory::get("broker");
+        Auditor* auditor = (Auditor*)ObjectFactory::get("auditor");
+        Notifier* notifier = (Notifier*)ObjectFactory::get("notifier");
+        Handler* aHandler =(Handler*) new AuditHandler(auditor);
+        Handler* nHandler =(Handler*) new EmailHandler(notifier);
+
+        broker->subscribe("audit", aHandler);
+        broker->subscribe("directory", nHandler);
 
         int id1 = dir->add(new Employee("Krishna", 1234));
         dir->find(id1);
