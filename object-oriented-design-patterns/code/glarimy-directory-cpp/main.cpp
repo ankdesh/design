@@ -1,11 +1,49 @@
 #include <iostream>
 #include <map>
+#include <list>
 
 using namespace std;
 
+// global
 class Object
 {
 };
+
+// auditor
+
+class Auditor : public Object
+{
+public:
+    virtual void log(string record) = 0;
+};
+
+class SimpleAuditor : public Auditor
+{
+public:
+    void log(string record)
+    {
+        cout << "Auditor: " << record << endl;
+    }
+};
+
+// notifier
+
+class Notifier : public Object
+{
+public:
+    virtual void notify(string message) = 0;
+};
+
+class EmailNotifier : public Notifier
+{
+public:
+    void notify(string message)
+    {
+        cout << "Mailer: " << message << endl;
+    }
+};
+
+// broker
 
 class Message : public Object
 {
@@ -30,6 +68,96 @@ public:
         return body;
     }
 };
+
+class Handler : public Object
+{
+public:
+    virtual void handle(Message *message) = 0;
+    virtual string getId() = 0;
+    virtual string getTopic() = 0;
+};
+
+class Broker : public Object
+{
+public:
+    virtual void subscribe(Handler *handler) = 0;
+    virtual void unsubscribe(string id) = 0;
+    virtual void publish(Message *message) = 0;
+};
+
+class MessageBroker : public Broker
+{
+private:
+    static MessageBroker *INSTANCE;
+    MessageBroker() {}
+    list<Handler *> handlers;
+
+public:
+    static MessageBroker *getInstance()
+    {
+        if (INSTANCE == nullptr)
+            INSTANCE = new MessageBroker();
+        return INSTANCE;
+    }
+
+    void subscribe(Handler *handler)
+    {
+        handlers.push_back(handler);
+    }
+
+    void unsubscribe(string id)
+    {
+        // TBD
+    }
+
+    void publish(Message *message)
+    {
+        list<Handler *>::iterator it;
+        for (it = handlers.begin(); it != handlers.end(); it++)
+        {
+            (*it)->handle(message);
+        }
+    }
+};
+
+MessageBroker* MessageBroker::INSTANCE = nullptr;
+
+// cache
+
+class Cache : public Object
+{
+public:
+    virtual void put(int key, Object *value) = 0;
+    virtual Object *get(int key) = 0;
+};
+
+class MapCache : public Cache
+{
+private:
+    map<int, Object *> entries;
+    static MapCache *INSTANCE;
+    MapCache() {}
+
+public:
+    static MapCache *getInstance()
+    {
+        if (INSTANCE == nullptr)
+            INSTANCE = new MapCache();
+        return INSTANCE;
+    }
+    void put(int key, Object *value)
+    {
+        entries.insert(pair<int, Object *>(key, value));
+    }
+    Object *get(int key)
+    {
+        return entries.at(key);
+    }
+};
+
+MapCache *MapCache::INSTANCE = nullptr;
+
+// directory
 
 class Employee : public Object
 {
@@ -104,146 +232,6 @@ public:
     virtual Employee *find(int id) = 0;
 };
 
-class Cache : public Object
-{
-public:
-    virtual void put(int key, Object *value) = 0;
-    virtual Object *get(int key) = 0;
-};
-
-class Handler : public Object
-{
-public:
-    virtual void handle(Message *message) = 0;
-};
-
-class AuditHandler : public Object
-{
-private:
-    Auditor* auditor;
-public:
-    AuditHandler(Auditor* auditor)
-    {
-        this->auditor = auditor;
-    }
-    void handle(Message *message)
-    {
-        if(message->getTopic() == "audit")
-            auditor->log(message->getBody());
-    }
-};
-
-class EmailHandler : public Object
-{
-private:
-    Notifier* notifier;
-public:
-    EmailHandler(Notifier* notifier)
-    {
-        this->notifier = notifier;
-    }
-    void handle(Message *message)
-    {
-        if(message->getTopic() == "directory")
-            notifier->notify(message->getBody());
-    }
-};
-
-class Auditor : public Object
-{
-public:
-    virtual void log(string record) = 0;
-};
-
-class SimpleAuditor : public Auditor
-{
-public:
-    void log(string record)
-    {
-
-    }
-};
-
-class Notifier : public Object
-{
-public:
-    virtual void notify(string message) = 0;
-};
-
-class EmailNotifier : public Notifier
-{
-public:
-    void notify(string message)
-    {
-
-    }
-};
-
-class Broker : public Object
-{
-public:
-    virtual int subscribe(string tipic, Handler *handler) = 0;
-    virtual void unsubscribe(int id) = 0;
-    virtual void publish(Message *message) = 0;
-};
-
-class MapCache : public Cache
-{
-private:
-    map<int, Object *> entries;
-    static MapCache *INSTANCE;
-    MapCache() {}
-
-public:
-    static MapCache *getInstance()
-    {
-        if (INSTANCE == nullptr)
-            INSTANCE = new MapCache();
-        return INSTANCE;
-    }
-    void put(int key, Object *value)
-    {
-        entries.insert(pair<int, Object *>(key, value));
-    }
-    Object *get(int key)
-    {
-        return entries.at(key);
-    }
-};
-
-MapCache *MapCache::INSTANCE = nullptr;
-
-class SimpleBroker : public Broker
-{
-private:
-    static SimpleBroker *INSTANCE;
-    SimpleBroker() {}
-
-public:
-    static SimpleBroker *getInstance()
-    {
-        if (INSTANCE == nullptr)
-            INSTANCE = new SimpleBroker();
-        return INSTANCE;
-    }
-
-    int subscribe(string topic, Handler *handler)
-    {
-        return 0;
-    }
-    void unsubscribe(int id)
-    {
-
-    }
-    void publish(Message *message)
-    {
-
-    }
-
-};
-
-SimpleBroker *SimpleBroker::INSTANCE = nullptr;
-
 class InMemoryDirectory : public Directory
 {
 private:
@@ -282,14 +270,14 @@ public:
     {
         try
         {
-            cout << "entering add: " << e->getName() << endl;
+            cout << "Logger: Entering add: " << e->getName() << endl;
             int value = target->add(e);
-            cout << "exiting add: " << value << endl;
+            cout << "Logger: Exiting add: " << value << endl;
             return value;
         }
         catch (DirectoryException *e)
         {
-            cout << "handling add" << endl;
+            cout << "Logger: Handling add" << endl;
             throw e;
         }
     }
@@ -298,14 +286,14 @@ public:
     {
         try
         {
-            cout << "entering find: " << id << endl;
+            cout << "Logger: Entering find: " << id << endl;
             Employee *e = (Employee *)target->find(id);
-            cout << "exiting find: " << e->getName() << endl;
+            cout << "Logger: Exiting find: " << e->getName() << endl;
             return e;
         }
         catch (DirectoryException *e)
         {
-            cout << "handling find" << endl;
+            cout << "Logger: Handling find" << endl;
             throw e;
         }
     }
@@ -323,31 +311,16 @@ public:
     }
     int add(Employee *e)
     {
-        try
+        if (e->getName() == "" || e->getPhone() < 0)
         {
-            if (e->getName() == "" || e->getPhone() < 0)
-            {
-                throw new InvalidEmployeeException("Invalid Employee");
-            }
-            return target->add(e);
+            throw new InvalidEmployeeException("Invalid Employee");
         }
-        catch (DirectoryException *e)
-        {
-            throw e;
-        }
+        return target->add(e);
     }
 
     Employee *find(int id)
     {
-        try
-        {
-            return (Employee *)target->find(id);
-        }
-        catch (DirectoryException *e)
-        {
-            cout << "handling find" << endl;
-            throw e;
-        }
+        return (Employee *)target->find(id);
     }
 };
 
@@ -361,20 +334,80 @@ public:
     AsyncDirectory(Directory *target, Broker *broker)
     {
         this->target = target;
+        this->broker = broker;
     }
 
     int add(Employee *e)
     {
-        broker->publish(new Message("audit", "add-employee attempted"));
         int id = target->add(e);
-        broker->publish(new Message("directory", e->getName()));
+        broker->publish(new Message("/directory/employee/add", e->getName()));
         return id;
     }
 
     Employee *find(int id)
     {
-        broker->publish(new Message("audit", "find-employee attempted"));
-        return (Employee *)target->find(id);
+        Employee *e = (Employee *)target->find(id);
+        broker->publish(new Message("/directory/employee/find", e->getName()));
+        return e;
+    }
+};
+
+// app
+
+class AbstractHandler : public Handler
+{
+private:
+    string id;
+    string topic;
+
+public:
+    AbstractHandler(string id, string topic)
+    {
+        this->id = id;
+        this->topic = topic;
+    }
+
+    string getId()
+    {
+        return id;
+    }
+
+    string getTopic()
+    {
+        return topic;
+    }
+};
+
+class AuditHandler : public AbstractHandler
+{
+private:
+    Auditor *auditor;
+
+public:
+    AuditHandler(string id, string topic, Auditor *auditor) : AbstractHandler(id, topic)
+    {
+        this->auditor = auditor;
+    }
+
+    void handle(Message *message)
+    {
+        auditor->log(message->getBody());
+    }
+};
+
+class EmailHandler : public AbstractHandler
+{
+private:
+    Notifier *notifier;
+
+public:
+    EmailHandler(string id, string topic, Notifier *notifier) : AbstractHandler(id, topic)
+    {
+        this->notifier = notifier;
+    }
+    void handle(Message *message)
+    {
+        notifier->notify(message->getBody());
     }
 };
 
@@ -406,7 +439,7 @@ public:
 
         if (key == "broker")
         {
-            return SimpleBroker::getInstance();
+            return MessageBroker::getInstance();
         }
 
         if (key == "logger-directory")
@@ -440,7 +473,7 @@ public:
         if (key == "full-system")
         {
             Directory *target = (Directory *)get("directory");
-            Broker* broker = (Broker* )get("broker");
+            Broker *broker = (Broker *)get("broker");
             target = new AsyncDirectory(target, broker);
             target = new LoggingProxy(target);
             target = new ValidationProxy(target);
@@ -455,15 +488,14 @@ int main()
 {
     try
     {
-        Directory *dir = (Directory *)ObjectFactory::get("logger-validator-directory");
-        Broker* broker = (Broker*)ObjectFactory::get("broker");
-        Auditor* auditor = (Auditor*)ObjectFactory::get("auditor");
-        Notifier* notifier = (Notifier*)ObjectFactory::get("notifier");
-        Handler* aHandler =(Handler*) new AuditHandler(auditor);
-        Handler* nHandler =(Handler*) new EmailHandler(notifier);
+        Directory *dir = (Directory *)ObjectFactory::get("full-system");
+        Broker *broker = (Broker *)ObjectFactory::get("broker");
+        Auditor *auditor = (Auditor *)ObjectFactory::get("auditor");
+        Notifier *notifier = (Notifier *)ObjectFactory::get("notifier");
 
-        broker->subscribe("audit", aHandler);
-        broker->subscribe("directory", nHandler);
+        broker->subscribe(new EmailHandler("com.glarimy.notifier.add", "/directory/employee/add", notifier));
+        broker->subscribe(new AuditHandler("com.glarimy.auditor.add", "/directory/employee/add", auditor));
+        broker->subscribe(new AuditHandler("com.glarimy.auditor.find", "/directory/employee/find", auditor));
 
         int id1 = dir->add(new Employee("Krishna", 1234));
         dir->find(id1);
