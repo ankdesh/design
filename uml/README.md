@@ -92,7 +92,7 @@ Represents service contract.
 
 ![Class](notation/classes/interface-1.png)
 
-Illustration
+Illustration:
 
 ![Class](notation/classes/interface-2.png)
 
@@ -346,25 +346,25 @@ As an alternative to object flows, input/output pins are also used.
 
 ![Class](notation/activities/activity-16.png)
 
-Illustration of pins
+Illustration of pins:
 
 ![Class](notation/activities/activity-17.png)
 
 #### 2.2.5. Activity Illustrations ####
 
-Illustration-1
+Illustration-1:
 
 ![Class](notation/activities/activity-18.png)
 
-Illustration-2
+Illustration-2:
 
 ![Class](notation/activities/activity-19.png)
 
-Illustration-3
+Illustration-3:
 
 ![Class](notation/activities/activity-20.png)
 
-Illustration-4
+Illustration-4:
 
 ![Class](notation/activities/activity-21.png)
 
