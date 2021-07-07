@@ -98,6 +98,21 @@
 #### Component Diagram Illustration ####
 ![Class](notation/components/component-illustration.png)
 
+### Deployment Diagram ###
+
+#### Node ####
+![Class](notation/deployment/deployment-1.png)
+
+#### Node Relations ####
+![Class](notation/deployment/deployment-2.png)
+
+![Class](notation/deployment/deployment-3.png)
+
+![Class](notation/deployment/deployment-4.png)
+
+#### Deployment Diagram Illustration ####
+![Class](notation/deployment/deployment-5.png)
+
 ## Behavioral Diagrams ##
 
 ### Usecase Diagram ###
@@ -125,3 +140,103 @@
 
 #### Usecase Diagram Illustration ####
 ![Class](notation/usecases/usecase-diagram.png)
+
+### Activity Diagram ###
+
+#### Action ####
+![Class](notation/activities/activity-1.png)
+
+#### Activity Flows ####
+![Class](notation/activities/activity-2.png)
+
+![Class](notation/activities/activity-3.png)
+
+![Class](notation/activities/activity-4.png)
+
+![Class](notation/activities/activity-5.png)
+
+![Class](notation/activities/activity-6.png)
+
+![Class](notation/activities/activity-7.png)
+
+![Class](notation/activities/activity-8.png)
+
+#### Activity Partitions ####
+
+![Class](notation/activities/activity-9.png)
+
+#### Activity Exceptions ####
+
+![Class](notation/activities/activity-10.png)
+
+![Class](notation/activities/activity-11.png)
+
+![Class](notation/activities/activity-12.png)
+
+![Class](notation/activities/activity-13.png)
+
+![Class](notation/activities/activity-14.png)
+
+![Class](notation/activities/activity-15.png)
+
+![Class](notation/activities/activity-16.png)
+
+![Class](notation/activities/activity-17.png)
+
+#### Activity Illustrations ####
+
+![Class](notation/activities/activity-18.png)
+
+![Class](notation/activities/activity-19.png)
+
+![Class](notation/activities/activity-20.png)
+
+![Class](notation/activities/activity-21.png)
+
+### State Chart Diagram ###
+
+#### State ####
+![Class](notation/state/state-1.png)
+
+#### State Transitions ####
+![Class](notation/state/state-2.png)
+
+![Class](notation/state/state-3.png)
+
+![Class](notation/state/state-4.png)
+
+![Class](notation/state/state-5.png)
+
+![Class](notation/state/state-6.png)
+
+#### Kinds of States ####
+
+![Class](notation/state/state-7.png)
+
+![Class](notation/state/state-12.png)
+
+![Class](notation/state/state-9.png)
+
+![Class](notation/state/state-10.png)
+
+![Class](notation/state/state-11.png)
+
+![Class](notation/state/state-8.png)
+
+
+### Sequence Diagram ###
+
+#### Lifeline ####
+![Class](notation/sequences/sequence-1.png)
+
+#### Interactions ####
+![Class](notation/sequences/sequence-2.png)
+
+![Class](notation/sequences/sequence-3.png)
+
+![Class](notation/sequences/sequence-4.png)
+
+![Class](notation/sequences/sequence-6.png)
+
+#### Fragments ####
+![Class](notation/sequences/sequence-7.png)
