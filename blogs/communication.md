@@ -8,9 +8,9 @@ The modes of communication between entities can be broadly categorized into sync
 
 In synchronous mode of communication, the participating entities are aware of each other and usually they play the roles of service consumer and service provider. The flow communication can be presented as follows:
 
-- 1.1. Consumer makes a request to the provider and waits for a response.
-- 1.2. Provider processes the request and sends back a response.
-- 1.3. Consumer receives the response. 
+    1.1. Consumer makes a request to the provider and waits for a response.
+    1.2. Provider processes the request and sends back a response.
+    1.3. Consumer receives the response. 
 
 Developing systems with this mode of communication is fairly simple. Testing such a system is also relatively easy. 
 
@@ -53,4 +53,4 @@ As with any other patterns, the communication patterns are also to be used after
 
 **Krishna Mohan Koyya**   
 <sub>https://www.glarimy.com | krishna@glarimy.com    
-https://www.linkedin.com/in/krishnamohankoyya  
+https://www.linkedin.com/in/krishnamohankoyya</sub>
