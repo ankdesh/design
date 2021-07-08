@@ -11,6 +11,27 @@ State is a set of attributes and behavior is a set of operations.
 
 ![Class](notation/classes/class-2.png)
 
+```
+    class Book {
+        private:
+            int isbn;
+            string title;
+            Set<string> authors;
+            boolean available = false;
+            double value = 0;
+            double discount = 0;
+            double price = 0;
+        public:
+            Book() {
+
+            }
+            
+            void print() {
+
+            }
+    }
+```
+
 #### 1.1.2. Association ####
 
 Association represents "uses and leaves" relationship. 
