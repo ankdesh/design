@@ -1,8 +1,4 @@
-Software Design and Architecture
+# Notes on Software Design and Architecture #
 
-- [A note on communication Patterns](blogs/communication.md)
-- [Object Oriented Design Patterns](object-oriented-design-patterns)
-- [Domain Driven Design](domain-driven-design)
-- [UML](uml)
-- [Object Oriented Analysis and Design](ooad)
-
+## 1. Communication Patterns ##  
+A well-architected system comprises of tens of, if not hundreds of, cohessive and loosely coupled entities. These entities can be in the ... [more](blogs/communication.md)

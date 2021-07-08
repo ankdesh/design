@@ -26,10 +26,10 @@ In asynchrnous communication, the participating entities may or may not aware of
 
 The following sequence explains this mode of communincation. 
 
-- 2.1. The sender connects with the receiver.
-- 2.2. The sender sends a message to the receiver.
-- 2.3. The receiver acknowledges the message and keep it in a queue.
-- 2.4. The sender and receiver proceed with their work independent of each other. 
+    2.1. The sender connects with the receiver.
+    2.2. The sender sends a message to the receiver.
+    2.3. The receiver acknowledges the message and keep it in a queue.
+    2.4. The sender and receiver proceed with their work independent of each other. 
 
 Usually, the senders and receivers run as two separate threads, or processes. The point worth noting is that the sender does not expect immediate processing of message. The receiver may or may not process the message immediately. In fact, the receiver may not process the message et al. 
 
@@ -39,9 +39,9 @@ A callback mechanism also may be employed in this mode where the sender wants a 
 
 The following are the steps involved in this mode of communication.
 
-- 3.1. The intended listening participants subscribe with a message broker. 
-- 3.2. The sender fires an event or publishes a message to the broker.
-- 3.3. The listerners receive the message and processes it
+    3.1. The intended listening participants subscribe with a message broker. 
+    3.2. The sender fires an event or publishes a message to the broker.
+    3.3. The listerners receive the message and processes it
 
 In this scheme, there is no need for the senders to know about the receivers and vice-versa. It is simply like the sender is shouting in the street and onlookers take note of it. They are not aware of each other. In case, a listener wants to communicate something back to the sender, the listener again fires an event or publishers a message to the broker. If the original sender listens the broker, ultimately the response message reaches the intended party. 
 
