@@ -32,3 +32,44 @@ Several messages might be grouped together for clarity.
 Interactions like opt (if), alt(if-else), parallel, critical, iter and etc., are also represented as combined fragments.
 
 ![Class](notation/sequences/sequence-7.png)
+
+#### 2.4.4. Illustration ####
+
+![Class](notation/sequences/sequence-8.png)
+
+```
+class Client {
+    public static void main(String[] args) {
+        Service service = new Service();
+        service.serve(request);
+        destroy service;
+    }
+}
+
+class Service {
+    private Store local; 
+    private Store remote;
+
+    public Service(Store remote) {
+        local = new Store();
+        this.remote = remote;
+    }
+
+    public void serve(request){
+        local.save(data);
+        remote.save(data);
+        notify("message");
+    }
+
+    public finalize() {
+        destroy local;
+    }
+
+}
+
+class Store {
+    public void save(data){
+        
+    }
+}
+```
