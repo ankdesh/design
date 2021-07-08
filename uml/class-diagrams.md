@@ -25,7 +25,7 @@ State is a set of attributes and behavior is a set of operations.
             Book() {
 
             }
-            
+
             void print() {
 
             }
@@ -125,3 +125,40 @@ Illustration:
 #### 1.1.10. Class Diagram Illustration ####
 
 ![Class](notation/classes/class-diagram.png)
+
+```
+class Connection {
+    private int timeout = 1000;
+    public void insert(string query){
+        ...
+    }
+}
+
+interface ConnectionPool {
+    public abstract Connection get(string key);
+}
+
+class FixedConnectionPool implements ConnectionPool {
+    private List<Connection> connections;
+    public Connection get(string key){
+        ...
+    }
+}
+
+class ConnectionPoolFactory {
+    public static ConnectionPool get(string key){
+        ...
+    }
+}
+
+class Client {
+    private ConnectionPool pool;
+    private Connection connection
+
+    public static void main(String[] args) {
+        pool = ConnectionPoolFactory.get("fixed");
+        connection = pool.get("mysql");
+        connection.insert("insert into employees value asdfasfdasdf");
+    }
+}
+```
