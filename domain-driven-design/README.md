@@ -74,7 +74,7 @@ Gives an impression of in-memory storage
 
 # Strategic DDD
 
-**Context/Bounded Context
+**Context/Bounded Context**
 
 Packages, Namespaces, Modules Subsystems or Microservices
 
@@ -84,12 +84,11 @@ Specific Teams, Databases, Language
 
 Common code repository Frequent Builds Automated Tests
 
-**Context Map
-
+**Context Map**
 
 Maps different bounded contexts
 
-**Bounded Context Vs Subdomain
+**Bounded Context Vs Subdomain**
 
 Subdomain belongs to problem
 
@@ -97,7 +96,7 @@ Bounded Context belongs to solution
 
 Multiple bounded-contexts within a given subdomain
 
-**Integration
+**Integration**
 
 Multiple Bounded Contexts 
 
@@ -105,7 +104,7 @@ Legacy Systems
 
 Third-party Services 
 
-**Integration Strategies
+**Integration Strategies**
 
 Shared Kernel: Shared minimal domain model 
 
