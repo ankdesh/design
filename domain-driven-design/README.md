@@ -80,7 +80,7 @@ Packages, Namespaces, Modules Subsystems or Microservices
 
 Specific Teams, Databases, Language
 
-**Continous Integration
+**Continous Integration**
 
 Common code repository Frequent Builds Automated Tests
 
