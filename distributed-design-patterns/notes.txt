@@ -27,7 +27,7 @@
 - A large data-cluster wants to store mata-data, elect leader/master, manage group-membership in consistent-way.
 
 6. 
-- Words are to be counted in a book. 
+- Words are to be counted in several files of a folder. 
 - Map/Reduce on a cluster 
 - How can it be co-ordinated? 
 - When does the final counts are computed?
@@ -63,4 +63,4 @@
 12. 
 - Clients and servers use common protocols
 - Clients and servers are unaware of each other
-- Requests from the clients are to be made available for servers
+- Requests from the clients are to be made available for mulitple servers
