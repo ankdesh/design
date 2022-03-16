@@ -16,10 +16,9 @@ public class ObjectFactory {
 			String profile = config.getProperty("profile");
 
 			if (profile.equals("dev")) {
-				if (key.equals("storage"))
-					return new MapStorage();
-				if (key.equals("directory"))
-					return new SimpleDirectory();
+				if (key.equals("directory")) {
+					return new SimpleDirectory.Builder().withSecurity().withBroker().withStorage(new MapStorage());
+				}
 			}
 
 			throw new DirectoryException();
