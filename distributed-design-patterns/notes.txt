@@ -3,12 +3,47 @@
 - The timestamps on the nodes are not reliable.
 - How these events can be replayed in the order they are stored.
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 2. 
 - A leader sends heart-beats to all the followers.
 - The leader is down and followers elected a new leader.
 - The older leader comes back and sends heart-beats.
 - How the followers detect the invalid heart-beats from the old-leader?
 - How the older leader knows that a new leader is elected?
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 3. 
 - A co-ordinator starts a distributed transaction involving multiple servers.
@@ -26,12 +61,42 @@
 5. 
 - A large data-cluster wants to store mata-data, elect leader/master, manage group-membership in consistent-way.
 
+
+
+
+
+
+
+
+
+
+
+
+
 6. 
 - Words are to be counted in several files of a folder. 
 - Map/Reduce on a cluster 
 - How can it be co-ordinated? 
 - When does the final counts are computed?
 - Guarantees performance?
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 7. 
 - How does the micro-services know each other to collaborate? 
@@ -64,3 +129,34 @@
 - Clients and servers use common protocols
 - Clients and servers are unaware of each other
 - Requests from the clients are to be made available for mulitple servers
+
+
+
+
+
+Distributed Transaction
+2PC - MS - NO
+Messaging (Kafka)
+
+
+
+S1
+S2
+S3
+
+Order Service
+Inventory Service
+Payments
+
+
+
+
+
+
+
+
+
+
+
+
+

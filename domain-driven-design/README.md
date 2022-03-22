@@ -121,3 +121,40 @@ Published Language: JSON/XML Messages
 Separate Ways: Let’s not integrate
 
 Final solution may involve multiple strategies
+
+# Case Study
+
+An art shop sells various products to its customers. The art shop wants to build portal that displays the products along with price, specification and etc., The customers must register themselves through the portal, before ordering the products. The portal also should allow the registered customers to raise and track issues.
+
+The IT team wants to go with DDD to build the portal with the following subdomains:
+1. Product Catalog Service (pcs)
+2. Order Service (os)
+3. User Management Service (ums)
+4. Customer Support Service (css)
+
+Initially, they want to deploy the UMS and CSS with the following use cases:
+
+User Management Service
+- to register a user (phone number, name, delivery address)
+- to activate/de-activate users
+- to list users based on city
+- to find user details based on phone number
+
+Customer Support Service
+- to raise a ticket
+- to view details of a ticket
+- to add comments on an active ticket
+- to change status of ticket (NEW, OPEN, CLOSED, ACCEPTED)
+- to list the tickets on status
+- to list the tickets on user
+
+Apart from above core sub-domains, the IT team wants to build the following generic services
+
+Message Broker
+- to subscribe
+- to publish
+
+Framework
+- Response and Response Builder
+- Error
+- Factory
